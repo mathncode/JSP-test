@@ -2,6 +2,7 @@ package com.newlecture.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/add")
-public class Add extends HttpServlet {
+@WebServlet("/add2")
+public class Add2 extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -20,11 +21,14 @@ public class Add extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
-		int x = Integer.parseInt(request.getParameter("x"));
-		int y = Integer.parseInt(request.getParameter("y"));
-		int result = x + y;
+		String[] numArr = request.getParameterValues("num");
+		int result = 0;
 		
-		out.printf("입력한 값은 %d, %d\n", x, y);
-		out.println("계산 결과 = " + String.valueOf(result));
+		for (int i = 0; i < numArr.length; i++) {
+			int num = Integer.parseInt(numArr[i]);
+			result += num;
+		}
+		
+		out.println("계산 결과 = " + result);
 	}
 }

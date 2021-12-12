@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/add")
-public class Add extends HttpServlet {
+@WebServlet("/calc")
+public class Calc extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -20,9 +20,24 @@ public class Add extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
-		int x = Integer.parseInt(request.getParameter("x"));
-		int y = Integer.parseInt(request.getParameter("y"));
-		int result = x + y;
+		String x_ = request.getParameter("x");
+		String y_ = request.getParameter("y");
+		String op = request.getParameter("operator");
+		
+		int x = 0;
+		int y = 0;
+		
+		if (!x_.equals(""))
+			x = Integer.parseInt(x_);
+		if (!y_.equals(""))
+			y = Integer.parseInt(y_);
+		
+		int result = 0;
+		
+		if (op.equals("덧셈"))
+			result = x + y;
+		else
+			result = x - y;
 		
 		out.printf("입력한 값은 %d, %d\n", x, y);
 		out.println("계산 결과 = " + String.valueOf(result));
